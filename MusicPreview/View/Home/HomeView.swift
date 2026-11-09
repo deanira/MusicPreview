@@ -25,6 +25,14 @@ struct HomeView: View {
           .buttonStyle(.plain)
           .listRowSeparator(.hidden, edges: track.id == viewModel.topTracks.first?.id ? .top : [])
           .listRowSeparator(.hidden, edges: track.id == viewModel.topTracks.last?.id ? .bottom : [])
+          .swipeActions(edge: .trailing) {
+            Button {
+              viewModel.addSavedTrack(track)
+            } label: {
+              Image(systemName: "bookmark")
+            }
+            .tint(.green)
+          }
         }
       }
       .frame(maxHeight: .infinity)
@@ -33,6 +41,17 @@ struct HomeView: View {
 
       if viewModel.isLoadingTopTracks {
         ProgressView()
+      } else if !viewModel.errorMessage.isEmpty {
+        VStack {
+          Text("Error: \(viewModel.errorMessage)")
+            .multilineTextAlignment(.center)
+          Button {
+            viewModel.fetchTopTracks()
+          } label: {
+            Text("Try Again")
+          }
+        }
+        .padding()
       }
     }
     .navigationTitle("Home")

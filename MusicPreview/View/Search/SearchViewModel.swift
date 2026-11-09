@@ -35,16 +35,33 @@ final class SearchViewModel: ObservableObject {
 
   func searchTracks() {
     isLoading = true
+    errorMessage = "" // reset error
     searchUseCase.searchTracks(query: query)
-      .sink { completion in
-        switch completion {
-        case .failure(let error):
+      .sink { [weak self] completion in
+        guard let self else { return }
+        self.isLoading = false
+        if case .failure(let error) = completion {
           self.errorMessage = error.localizedDescription
-        case .finished:
-          self.isLoading = false
         }
-      } receiveValue: { tracks in
+      } receiveValue: { [weak self] tracks in
+        guard let self else { return }
         self.resultTracks = tracks
+      }
+      .store(in: &cancellables)
+  }
+
+  func addSavedTrack(_ track: TrackModel) {
+    searchUseCase.addSavedTrack(track)
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] completion in
+        guard let self else { return }
+        if case .failure(let error) = completion {
+          self.errorMessage = error.localizedDescription
+        }
+      } receiveValue: { [weak self] state in
+        guard let self else { return }
+        if state { }
+        else { }
       }
       .store(in: &cancellables)
   }

@@ -24,6 +24,14 @@ struct SearchView: View {
           .buttonStyle(.plain)
           .listRowSeparator(.hidden, edges: track.id == viewModel.resultTracks.first?.id ? .top : [])
           .listRowSeparator(.hidden, edges: track.id == viewModel.resultTracks.last?.id ? .bottom : [])
+          .swipeActions(edge: .trailing) {
+            Button {
+              viewModel.addSavedTrack(track)
+            } label: {
+              Image(systemName: "bookmark")
+            }
+            .tint(.green)
+          }
         }
       }
       .listStyle(.plain)
@@ -31,6 +39,17 @@ struct SearchView: View {
       if viewModel.resultTracks.isEmpty {
         if viewModel.isLoading {
           ProgressView()
+        } else if !viewModel.errorMessage.isEmpty {
+          VStack {
+            Text("Error: \(viewModel.errorMessage)")
+              .multilineTextAlignment(.center)
+            Button {
+              viewModel.searchTracks()
+            } label: {
+              Text("Try Again")
+            }
+          }
+          .padding()
         } else {
           Text("Find songs")
             .frame(maxWidth: .infinity)

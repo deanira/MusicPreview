@@ -23,16 +23,32 @@ final class HomeViewModel: ObservableObject {
 
   func fetchTopTracks() {
     isLoadingTopTracks = true
+    errorMessage = "" // reset error
     homeUseCase.fetchMostPlayedSongs(request: MostPlayedRequest(countryCode: "id", limit: 25))
-      .sink { completion in
-        switch completion {
-        case .failure(let error):
+      .sink { [weak self] completion in
+        guard let self else { return }
+        self.isLoadingTopTracks = false
+        if case .failure(let error) = completion {
           self.errorMessage = error.localizedDescription
-        case .finished:
-          self.isLoadingTopTracks = false
         }
-      } receiveValue: { tracks in
-        self.topTracks = tracks
+      } receiveValue: { [weak self] tracks in
+        self?.topTracks = tracks
+      }
+      .store(in: &cancellables)
+  }
+
+  func addSavedTrack(_ track: TrackModel) {
+    homeUseCase.addSavedTrack(track)
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] completion in
+        guard let self else { return }
+        if case .failure(let error) = completion {
+          self.errorMessage = error.localizedDescription
+        }
+      } receiveValue: { [weak self] state in
+        guard let self else { return }
+        if state { }
+        else { }
       }
       .store(in: &cancellables)
   }

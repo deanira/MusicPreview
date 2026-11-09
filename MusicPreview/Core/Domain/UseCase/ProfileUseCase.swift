@@ -8,13 +8,23 @@
 import Combine
 
 protocol ProfileUseCaseProtocol {
-  
+  func fetchProfile() -> AnyPublisher<ProfileEntity?, Error>
+  func saveProfile(_ profile: ProfileEntity) -> AnyPublisher<Bool, Error>
 }
 
 final class ProfileUseCase: ProfileUseCaseProtocol {
-  private let repository: MusicRepository
+  private let repository: MusicRepositoryProtocol
 
-  init(repository: MusicRepository) {
+  init(repository: MusicRepositoryProtocol) {
     self.repository = repository
   }
+
+  func fetchProfile() -> AnyPublisher<ProfileEntity?, any Error> {
+    repository.fetchProfile()
+  }
+
+  func saveProfile(_ profile: ProfileEntity) -> AnyPublisher<Bool, any Error> {
+    repository.saveProfile(profile)
+  }
+
 }

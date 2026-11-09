@@ -8,16 +8,14 @@
 import Combine
 
 protocol PlayerUseCaseProtocol {
-  // save track
   func saveTrack(_ track: TrackModel) -> AnyPublisher<Bool, Error>
-  // delete track
   func deleteTrack(id: Int) -> AnyPublisher<Bool, Error>
 }
 
 final class PlayerUseCase: PlayerUseCaseProtocol {
-  private let repository: MusicRepository
+  private let repository: MusicRepositoryProtocol
 
-  init(repository: MusicRepository) {
+  init(repository: MusicRepositoryProtocol) {
     self.repository = repository
   }
 

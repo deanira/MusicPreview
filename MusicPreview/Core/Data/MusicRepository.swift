@@ -56,4 +56,16 @@ extension MusicRepository: MusicRepositoryProtocol {
   func deleteSavedTrack(id: String) -> AnyPublisher<Bool, any Error> {
     return self.locale.deleteSavedTrack(id: id)
   }
+
+  func fetchProfile() -> AnyPublisher<ProfileEntity?, Error> {
+    return self.locale.fetchProfile()
+  }
+
+  func saveProfile(_ profile: ProfileEntity) -> AnyPublisher<Bool, Error> {
+    return self.locale.saveProfile(profile)
+  }
+
+  func deleteProfile() -> AnyPublisher<Bool, Error> {
+    return self.locale.deleteProfile()
+  }
 }

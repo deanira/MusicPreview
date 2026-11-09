@@ -12,14 +12,30 @@
 		A7882939309CB857001FA5B0 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A7882938309CB857001FA5B0 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A72558E030A15A23002AB147 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = MusicPreview;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		000000000000000000000120 /* MusicPreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000120 /* MusicPreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = MusicPreview.app; path = "/Users/deanira/Documents/ios-app/MusicPreview/build/Debug/MusicPreview.app"; sourceTree = "<absolute>"; };
+		A72558DC30A15A23002AB147 /* MusicPreviewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MusicPreviewTests.xctest; path = "/Users/deanira/Documents/ios-app/MusicPreview/build/Debug-iphoneos/MusicPreview.app/PlugIns/MusicPreviewTests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		000000000000000000000010 /* MusicPreview */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MusicPreview;
+			sourceTree = "<group>";
+		};
+		A72558DD30A15A23002AB147 /* MusicPreviewTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MusicPreviewTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -33,6 +49,11 @@
 				A72E739A3097690900A52A4E /* Alamofire in Frameworks */,
 			);
 		};
+		A72558D930A15A23002AB147 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -40,16 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000010 /* MusicPreview */,
-				000000000000000000000020 /* Products */,
+				A72558DD30A15A23002AB147 /* MusicPreviewTests */,
 			);
-			sourceTree = "<group>";
-		};
-		000000000000000000000020 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				000000000000000000000120 /* MusicPreview.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -78,6 +91,27 @@
 			productReference = 000000000000000000000120 /* MusicPreview.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A72558DB30A15A23002AB147 /* MusicPreviewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A72558E230A15A23002AB147 /* Build configuration list for PBXNativeTarget "MusicPreviewTests" */;
+			buildPhases = (
+				A72558D830A15A23002AB147 /* Sources */,
+				A72558D930A15A23002AB147 /* Frameworks */,
+				A72558DA30A15A23002AB147 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A72558E130A15A23002AB147 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A72558DD30A15A23002AB147 /* MusicPreviewTests */,
+			);
+			name = MusicPreviewTests;
+			productName = MusicPreviewTests;
+			productReference = A72558DC30A15A23002AB147 /* MusicPreviewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -85,11 +119,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2630;
+				LastSwiftUpdateCheck = 2720;
 				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					000000000000000100000000 = {
 						CreatedOnToolsVersion = 26.3;
+					};
+					A72558DB30A15A23002AB147 = {
+						CreatedOnToolsVersion = 27.2;
+						TestTargetID = 000000000000000100000000;
 					};
 				};
 			};
@@ -108,17 +146,23 @@
 				A7255877309DDBF0002AB147 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			preferredProjectObjectVersion = 90;
-			productRefGroup = 000000000000000000000020 /* Products */;
+			productRefGroup = 000000000000000000000001;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* MusicPreview */,
+				A72558DB30A15A23002AB147 /* MusicPreviewTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		000000000000000140000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		A72558DA30A15A23002AB147 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -131,7 +175,20 @@
 			files = (
 			);
 		};
+		A72558D830A15A23002AB147 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A72558E130A15A23002AB147 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* MusicPreview */;
+			targetProxy = A72558E030A15A23002AB147 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		000000000000000011000000 /* Debug configuration for PBXProject "MusicPreview" */ = {
@@ -342,6 +399,53 @@
 			};
 			name = Release;
 		};
+		A72558E330A15A23002AB147 /* Debug configuration for PBXNativeTarget "MusicPreviewTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PN4S8JA5KM;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dea.MusicPreviewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MusicPreview.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MusicPreview";
+			};
+			name = Debug;
+		};
+		A72558E430A15A23002AB147 /* Release configuration for PBXNativeTarget "MusicPreviewTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PN4S8JA5KM;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dea.MusicPreviewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MusicPreview.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MusicPreview";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -358,6 +462,14 @@
 			buildConfigurations = (
 				000000000000000111000000 /* Debug configuration for PBXNativeTarget "MusicPreview" */,
 				000000000000000112000000 /* Release configuration for PBXNativeTarget "MusicPreview" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		A72558E230A15A23002AB147 /* Build configuration list for PBXNativeTarget "MusicPreviewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A72558E330A15A23002AB147 /* Debug configuration for PBXNativeTarget "MusicPreviewTests" */,
+				A72558E430A15A23002AB147 /* Release configuration for PBXNativeTarget "MusicPreviewTests" */,
 			);
 			defaultConfigurationName = Release;
 		};
