@@ -9,11 +9,15 @@ import Foundation
 import RealmSwift
 
 class TrackEntity: Object {
-  @Persisted(primaryKey: true) var id: String
-  @Persisted var title: String
-  @Persisted var artist: String
-  @Persisted var artworkUrlLarge: String
-  @Persisted var artworkUrlSmall: String
-  @Persisted var previewUrl: String
-  @Persisted var durationMillis: Int
+  @objc dynamic var id: String
+  @objc dynamic var title: String
+  @objc dynamic var artist: String
+  @objc dynamic var artworkUrlLarge: String
+  @objc dynamic var artworkUrlSmall: String
+  @objc dynamic var previewUrl: String
+  @objc dynamic var durationMillis: Int
+
+  override public class func primaryKey() -> String? {
+    return "id"
+  }
 }

@@ -46,7 +46,7 @@ final class LibraryViewModel: ObservableObject {
         }
       } receiveValue: { [weak self] state in
         guard let self else { return }
-        if state { }
+        if state { fetchSavedTracks() }
         else { }
       }
       .store(in: &cancellables)

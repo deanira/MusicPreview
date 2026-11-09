@@ -8,7 +8,7 @@
 import Foundation
 
 struct ProfileEntity: Codable, Equatable {
-    var displayName: String
-    var bio: String
-    var avatarFileName: String?
+  var displayName: String
+  var bio: String
+  var avatarFileName: String?
 }
