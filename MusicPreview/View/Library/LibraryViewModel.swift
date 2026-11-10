@@ -14,25 +14,22 @@ final class LibraryViewModel: ObservableObject {
 
   // MARK: - UI state
   @Published private(set) var savedTracks: [TrackModel] = []
-  @Published private(set) var hasLoaded = false
   @Published private(set) var errorMessage = ""
 
   init(libraryUseCase: LibraryUseCaseProtocol) {
     self.libraryUseCase = libraryUseCase
+    observeSavedTracks()
   }
 
-  func fetchSavedTracks() {
+  private func observeSavedTracks() {
     libraryUseCase.fetchSavedTracks()
       .receive(on: DispatchQueue.main)
       .sink { [weak self] completion in
-        guard let self else { return }
-        self.hasLoaded = true
         if case .failure(let error) = completion {
-          self.errorMessage = error.localizedDescription
+          self?.errorMessage = error.localizedDescription
         }
       } receiveValue: { [weak self] tracks in
-        guard let self else { return }
-        self.savedTracks = tracks
+        self?.savedTracks = tracks
       }
       .store(in: &cancellables)
   }
@@ -45,11 +42,7 @@ final class LibraryViewModel: ObservableObject {
         if case .failure(let error) = completion {
           self.errorMessage = error.localizedDescription
         }
-      } receiveValue: { [weak self] state in
-        guard let self else { return }
-        if state { fetchSavedTracks() }
-        else { }
-      }
+      } receiveValue: { _ in }
       .store(in: &cancellables)
   }
 }

@@ -108,17 +108,17 @@ final class PlayerViewModel: ObservableObject {
   // MARK: - Private
   private func bind() {
     audioPlayerManager.isPlayingPublisher
-      .receive(on: RunLoop.main)
+      .receive(on: DispatchQueue.main)
       .sink { [weak self] in self?.isPlaying = $0 }
       .store(in: &cancellables)
 
     audioPlayerManager.durationPublisher
-      .receive(on: RunLoop.main)
+      .receive(on: DispatchQueue.main)
       .sink { [weak self] in self?.duration = $0 }
       .store(in: &cancellables)
 
     audioPlayerManager.currentTimePublisher
-      .receive(on: RunLoop.main)
+      .receive(on: DispatchQueue.main)
       .sink { [weak self] time in
         guard let self, !self.isScrubbing else { return }
         self.currentTime = time

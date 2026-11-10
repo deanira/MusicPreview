@@ -44,17 +44,17 @@ final class LocaleDataSource {
 // MARK: - Tracks
 extension LocaleDataSource: LocaleDataSourceProtocol {
   func fetchSavedTracks() -> AnyPublisher<[TrackEntity], Error> {
-    Deferred {
-      Future<[TrackEntity], Error> { completion in
-        guard let realm = self.realm else {
-          completion(.failure(DatabaseError.invalidInstance))
-          return
-        }
-        let tracks = realm.objects(TrackEntity.self)
-        completion(.success(tracks.toArray(ofType: TrackEntity.self)))
-      }
+    guard let realm = self.realm else {
+      return Fail(error: DatabaseError.invalidInstance).eraseToAnyPublisher()
     }
-    .eraseToAnyPublisher()
+
+    return realm.objects(TrackEntity.self)
+      .collectionPublisher
+      .subscribe(on: DispatchQueue.main)
+      .freeze()                      
+      .map { $0.toArray(ofType: TrackEntity.self) }
+      .mapError { $0 as Error }
+      .eraseToAnyPublisher()
   }
 
   func addSavedTrack(_ track: TrackEntity) -> AnyPublisher<Bool, Error> {

@@ -13,10 +13,7 @@ struct LibraryView: View {
 
   var body: some View {
     Group {
-      if !viewModel.hasLoaded {
-        ProgressView()
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
-      } else if viewModel.savedTracks.isEmpty {
+      if viewModel.savedTracks.isEmpty {
         emptyState
       } else {
         trackList
@@ -32,9 +29,6 @@ struct LibraryView: View {
             .foregroundStyle(.blue)
         }
       }
-    }
-    .onAppear {
-      viewModel.fetchSavedTracks()
     }
   }
 
