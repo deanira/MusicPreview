@@ -18,6 +18,7 @@ struct HomeView: View {
         ForEach(viewModel.topTracks) { track in
           Button {
             playerViewModel.play(track)
+            playerViewModel.showNowPlaying = true
           } label: {
             TrackView(track: track, nowPlaying: playerViewModel.track?.id == track.id)
           }
