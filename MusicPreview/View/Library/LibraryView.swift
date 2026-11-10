@@ -62,7 +62,6 @@ struct LibraryView: View {
     }
     .listStyle(.plain)
     .scrollIndicators(.automatic)
-    .padding(.horizontal)
   }
 
   private var emptyState: some View {

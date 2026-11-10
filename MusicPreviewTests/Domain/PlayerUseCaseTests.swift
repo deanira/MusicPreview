@@ -178,6 +178,18 @@ extension PlayerUseCaseTests {
       fatalError("Not used in PlayerUseCaseTests")
     }
 
+    func fetchProfile() -> AnyPublisher<MusicPreview.ProfileEntity?, any Error> {
+      fatalError("Not used in PlayerUseCaseTests")
+    }
+
+    func saveProfile(_ profile: MusicPreview.ProfileEntity) -> AnyPublisher<Bool, any Error> {
+      fatalError("Not used in PlayerUseCaseTests")
+    }
+
+    func deleteProfile() -> AnyPublisher<Bool, any Error> {
+      fatalError("Not used in PlayerUseCaseTests")
+    }
+
     func verifySave() -> Bool {
       saveWasCalled
     }

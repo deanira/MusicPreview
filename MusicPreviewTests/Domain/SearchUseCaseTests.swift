@@ -40,9 +40,10 @@ final class SearchUseCaseTests: XCTestCase {
     super.tearDown()
   }
 
+  // MARK: - search
   func testSearchTracksSuccess() throws {
     let repository = MusicRepositoryMock()
-    repository.result = .success(SearchUseCaseTests.tracks)
+    repository.searchResult = .success(SearchUseCaseTests.tracks)
     let useCase = SearchUseCase(repository: repository)
 
     let expectation = expectation(description: "searchTracks success")
@@ -62,7 +63,7 @@ final class SearchUseCaseTests: XCTestCase {
 
     wait(for: [expectation], timeout: 1.0)
 
-    XCTAssert(repository.verify())
+    XCTAssert(repository.verifySearch())
     XCTAssertEqual(repository.receivedQuery, SearchUseCaseTests.query)
     XCTAssertEqual(receivedTracks?.count, SearchUseCaseTests.tracks.count)
     XCTAssertEqual(receivedTracks?.first?.id, SearchUseCaseTests.tracks.first?.id)
@@ -70,7 +71,7 @@ final class SearchUseCaseTests: XCTestCase {
 
   func testSearchTracksEmpty() throws {
     let repository = MusicRepositoryMock()
-    repository.result = .success([])
+    repository.searchResult = .success([])
     let useCase = SearchUseCase(repository: repository)
 
     let expectation = expectation(description: "searchTracks empty")
@@ -90,14 +91,14 @@ final class SearchUseCaseTests: XCTestCase {
 
     wait(for: [expectation], timeout: 1.0)
 
-    XCTAssert(repository.verify())
+    XCTAssert(repository.verifySearch())
     XCTAssertEqual(repository.receivedQuery, "zzzzzz")
     XCTAssertEqual(receivedTracks?.isEmpty, true)
   }
 
   func testSearchTracksFailure() throws {
     let repository = MusicRepositoryMock()
-    repository.result = .failure(MockError.generic)
+    repository.searchResult = .failure(MockError.generic)
     let useCase = SearchUseCase(repository: repository)
 
     let expectation = expectation(description: "searchTracks failure")
@@ -117,7 +118,62 @@ final class SearchUseCaseTests: XCTestCase {
 
     wait(for: [expectation], timeout: 1.0)
 
-    XCTAssert(repository.verify())
+    XCTAssert(repository.verifySearch())
+    XCTAssertNotNil(receivedError)
+    XCTAssertTrue(receivedError is MockError)
+  }
+
+  // MARK: - Save
+  func testSaveTrackSuccess() throws {
+    let repository = MusicRepositoryMock()
+    repository.saveResult = .success(true)
+    let useCase = PlayerUseCase(repository: repository)
+
+    let expectation = expectation(description: "saveTrack success")
+    var receivedResult: Bool?
+
+    useCase.saveTrack(PlayerUseCaseTests.track)
+      .sink(
+        receiveCompletion: { completion in
+          if case .failure = completion {
+            XCTFail("Expected success but got failure")
+          }
+          expectation.fulfill()
+        },
+        receiveValue: { receivedResult = $0 }
+      )
+      .store(in: &cancellables)
+
+    wait(for: [expectation], timeout: 1.0)
+
+    XCTAssert(repository.verifySave())
+    XCTAssertEqual(repository.receivedTrackId, PlayerUseCaseTests.track.id)
+    XCTAssertEqual(receivedResult, true)
+  }
+
+  func testSaveTrackFailure() throws {
+    let repository = MusicRepositoryMock()
+    repository.saveResult = .failure(MockError.generic)
+    let useCase = PlayerUseCase(repository: repository)
+
+    let expectation = expectation(description: "saveTrack failure")
+    var receivedError: Error?
+
+    useCase.saveTrack(PlayerUseCaseTests.track)
+      .sink(
+        receiveCompletion: { completion in
+          if case .failure(let error) = completion {
+            receivedError = error
+          }
+          expectation.fulfill()
+        },
+        receiveValue: { _ in XCTFail("Expected failure but got value") }
+      )
+      .store(in: &cancellables)
+
+    wait(for: [expectation], timeout: 1.0)
+
+    XCTAssert(repository.verifySave())
     XCTAssertNotNil(receivedError)
     XCTAssertTrue(receivedError is MockError)
   }
@@ -130,14 +186,17 @@ extension SearchUseCaseTests {
   }
 
   class MusicRepositoryMock: MusicRepositoryProtocol {
-    var functionWasCalled = false
+    var searchWasCalled = false
+    var saveWasCalled = false
     var receivedQuery: String?
-    var result: Result<[TrackModel], Error> = .success([])
+    var receivedTrackId: Int?
+    var searchResult: Result<[TrackModel], Error> = .success([])
+    var saveResult: Result<Bool, Error> = .success(true)
 
     func searchTracks(query: String) -> AnyPublisher<[TrackModel], Error> {
-      functionWasCalled = true
+      searchWasCalled = true
       receivedQuery = query
-      return result.publisher.eraseToAnyPublisher()
+      return searchResult.publisher.eraseToAnyPublisher()
     }
 
     func fetchMostPlayedSongs(request: MostPlayedRequest) -> AnyPublisher<[TrackModel], Error> {
@@ -149,15 +208,33 @@ extension SearchUseCaseTests {
     }
 
     func addSavedTrack(_ track: TrackModel) -> AnyPublisher<Bool, Error> {
-      fatalError("Not used in SearchUseCaseTests")
+      saveWasCalled = true
+      receivedTrackId = track.id
+      return saveResult.publisher.eraseToAnyPublisher()
     }
 
     func deleteSavedTrack(id: String) -> AnyPublisher<Bool, Error> {
       fatalError("Not used in SearchUseCaseTests")
     }
 
-    func verify() -> Bool {
-      functionWasCalled
+    func fetchProfile() -> AnyPublisher<MusicPreview.ProfileEntity?, any Error> {
+      fatalError("Not used in SearchUseCaseTests")
+    }
+
+    func saveProfile(_ profile: MusicPreview.ProfileEntity) -> AnyPublisher<Bool, any Error> {
+      fatalError("Not used in SearchUseCaseTests")
+    }
+
+    func deleteProfile() -> AnyPublisher<Bool, any Error> {
+      fatalError("Not used in SearchUseCaseTests")
+    }
+
+    func verifySearch() -> Bool {
+      searchWasCalled
+    }
+
+    func verifySave() -> Bool {
+      saveWasCalled
     }
   }
 }
