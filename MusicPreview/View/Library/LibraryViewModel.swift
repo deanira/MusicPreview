@@ -12,6 +12,7 @@ final class LibraryViewModel: ObservableObject {
   private let libraryUseCase: LibraryUseCaseProtocol
   private var cancellables: Set<AnyCancellable> = []
 
+  // MARK: - UI state
   @Published private(set) var savedTracks: [TrackModel] = []
   @Published private(set) var hasLoaded = false
   @Published private(set) var errorMessage = ""

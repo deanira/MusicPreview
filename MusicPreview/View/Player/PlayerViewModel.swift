@@ -10,13 +10,12 @@ import Foundation
 
 final class PlayerViewModel: ObservableObject {
   private let playerUseCase: PlayerUseCaseProtocol
-
   private var cancellables: Set<AnyCancellable> = []
-  @Published var track: TrackModel? = nil
 
+  // MARK: - UI state
+  @Published var track: TrackModel? = nil
   @Published private(set) var isLoading = false
   @Published private(set) var errorMessage = ""
-
   @Published private(set) var message = ""
 
   init(playerUseCase: PlayerUseCaseProtocol) {

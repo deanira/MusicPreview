@@ -10,10 +10,10 @@ import Foundation
 
 final class HomeViewModel: ObservableObject {
   private let homeUseCase: HomeUseCaseProtocol
-
   private var cancellables: Set<AnyCancellable> = []
-  @Published private(set) var topTracks: [TrackModel] = []
 
+  // MARK: - UI state
+  @Published private(set) var topTracks: [TrackModel] = []
   @Published private(set) var isLoadingTopTracks = false
   @Published private(set) var errorMessage = ""
 

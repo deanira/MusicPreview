@@ -10,11 +10,11 @@ import Foundation
 
 final class ProfileViewModel: ObservableObject {
   private let profileUseCase: ProfileUseCaseProtocol
-
   private var cancellables = Set<AnyCancellable>()
 
+  // MARK: - UI state
   @Published private(set) var profile: ProfileEntity?
-  @Published var errorMessage: String?
+  @Published private(set) var errorMessage: String?
 
   init(profileUseCase: ProfileUseCaseProtocol) {
     self.profileUseCase = profileUseCase

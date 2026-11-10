@@ -10,13 +10,13 @@ import Foundation
 
 final class SearchViewModel: ObservableObject {
   private let searchUseCase: SearchUseCaseProtocol
-
   private var cancellables: Set<AnyCancellable> = []
-  @Published private(set) var resultTracks: [TrackModel] = []
 
-  @Published var query = ""
+  // MARK: - UI state
+  @Published private(set) var resultTracks: [TrackModel] = []
   @Published private(set) var isLoading = false
   @Published private(set) var errorMessage = ""
+  @Published var query = ""
 
   init(searchUseCase: SearchUseCaseProtocol) {
     self.searchUseCase = searchUseCase
