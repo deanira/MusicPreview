@@ -65,12 +65,6 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
           return
         }
         do {
-          print("debug: realm scheme", TrackEntity.primaryKey() ?? "nil")
-          print("debug: realm scheme", String(reflecting: TrackEntity.self))
-          print("debug: realm scheme", realm.schema["TrackEntity"]?.properties.map(\.name) ?? [])
-          print("debug: realm scheme", realm.schema.objectSchema.map(\.className))
-          print("debug: realm scheme", realm.schema["TrackEntity"]?.primaryKeyProperty?.name ?? "NO PRIMARY KEY")
-          print("debug: realm scheme", realm.configuration.fileURL as Any)
           try realm.write {
             realm.add(track, update: .modified)
           }
