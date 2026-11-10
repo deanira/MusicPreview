@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LibraryView: View {
   @StateObject var viewModel: LibraryViewModel = LibraryViewModel(libraryUseCase: Injection.sharedInstance.provideLibraryUseCase())
-  @Environment(PlayerState.self) private var player
+  @EnvironmentObject private var playerViewModel: PlayerViewModel
 
   var body: some View {
     Group {
@@ -42,10 +42,9 @@ struct LibraryView: View {
     List {
       ForEach(viewModel.savedTracks) { track in
         Button {
-          player.currentTrack = track
-          player.isPlaying = true
+          playerViewModel.play(track)
         } label: {
-          TrackView(track: track)
+          TrackView(track: track, nowPlaying: playerViewModel.track?.id == track.id)
         }
         .buttonStyle(.plain)
         .listRowSeparator(.hidden, edges: track.id == viewModel.savedTracks.first?.id ? .top : [])

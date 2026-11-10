@@ -23,8 +23,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		000000000000000000000120 /* MusicPreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = MusicPreview.app; path = "/Users/deanira/Documents/ios-app/MusicPreview/build/Debug/MusicPreview.app"; sourceTree = "<absolute>"; };
-		A72558DC30A15A23002AB147 /* MusicPreviewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MusicPreviewTests.xctest; path = "/Users/deanira/Documents/ios-app/MusicPreview/build/Debug-iphoneos/MusicPreview.app/PlugIns/MusicPreviewTests.xctest"; sourceTree = "<absolute>"; };
+		000000000000000000000120 /* MusicPreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A72558DC30A15A23002AB147 /* MusicPreviewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicPreviewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -62,6 +62,8 @@
 			children = (
 				000000000000000000000010 /* MusicPreview */,
 				A72558DD30A15A23002AB147 /* MusicPreviewTests */,
+				000000000000000000000120 /* MusicPreview.app */,
+				A72558DC30A15A23002AB147 /* MusicPreviewTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};

@@ -10,17 +10,16 @@ import SwiftUI
 
 struct HomeView: View {
   @StateObject var viewModel: HomeViewModel = HomeViewModel(homeUseCase: Injection.sharedInstance.provideHomeUseCase())
-  @Environment(PlayerState.self) private var player
+  @EnvironmentObject private var playerViewModel: PlayerViewModel
 
   var body: some View {
     ZStack {
       List {
         ForEach(viewModel.topTracks) { track in
           Button {
-            player.currentTrack = track
-            player.isPlaying = true
+            playerViewModel.play(track)
           } label: {
-            TrackView(track: track)
+            TrackView(track: track, nowPlaying: playerViewModel.track?.id == track.id)
           }
           .buttonStyle(.plain)
           .listRowSeparator(.hidden, edges: track.id == viewModel.topTracks.first?.id ? .top : [])
@@ -70,29 +69,5 @@ struct HomeView: View {
         viewModel.fetchTopTracks()
       }
     }
-  }
-}
-
-struct TrackView: View {
-  let track: TrackModel
-
-  var body: some View {
-    HStack {
-      if let artworkUrlSmall = URL(string: track.artworkUrlSmall) {
-        KFImage(artworkUrlSmall)
-          .resizable()
-          .frame(width: 60, height: 60)
-          .clipShape(RoundedRectangle(cornerRadius: 8))
-      }
-
-      VStack(alignment: .leading) {
-        Text(track.title)
-          .bold()
-        Text(track.artist)
-      }
-
-      Spacer()
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
   }
 }

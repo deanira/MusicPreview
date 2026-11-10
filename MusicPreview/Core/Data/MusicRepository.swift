@@ -57,12 +57,15 @@ extension MusicRepository: MusicRepositoryProtocol {
     return self.locale.deleteSavedTrack(id: id)
   }
 
-  func fetchProfile() -> AnyPublisher<ProfileEntity?, Error> {
+  func fetchProfile() -> AnyPublisher<ProfileModel?, Error> {
     return self.locale.fetchProfile()
+      .compactMap { $0 }
+      .map { ProfileMapper.mapProfileEntitiesToDomains(input: $0) }
+      .eraseToAnyPublisher()
   }
 
-  func saveProfile(_ profile: ProfileEntity) -> AnyPublisher<Bool, Error> {
-    return self.locale.saveProfile(profile)
+  func saveProfile(_ profile: ProfileModel) -> AnyPublisher<Bool, Error> {
+    return self.locale.saveProfile(ProfileMapper.mapProfileDomainToEntity(input: profile))
   }
 
   func deleteProfile() -> AnyPublisher<Bool, Error> {

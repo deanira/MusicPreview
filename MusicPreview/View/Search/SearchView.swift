@@ -9,17 +9,16 @@ import SwiftUI
 
 struct SearchView: View {
   @StateObject var viewModel: SearchViewModel = SearchViewModel(searchUseCase: Injection.sharedInstance.provideSearchUseCase())
-  @Environment(PlayerState.self) private var player
+  @EnvironmentObject private var playerViewModel: PlayerViewModel
 
   var body: some View {
     ZStack {
       List {
         ForEach(viewModel.resultTracks) { track in
           Button {
-            player.currentTrack = track
-            player.isPlaying = true
+            playerViewModel.play(track)
           } label: {
-            TrackView(track: track)
+            TrackView(track: track, nowPlaying: playerViewModel.track?.id == track.id)
           }
           .buttonStyle(.plain)
           .listRowSeparator(.hidden, edges: track.id == viewModel.resultTracks.first?.id ? .top : [])

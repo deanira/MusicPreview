@@ -13,7 +13,7 @@ protocol MusicRepositoryProtocol {
   func fetchSavedTracks() -> AnyPublisher<[TrackModel], Error>
   func addSavedTrack(_ track: TrackModel) -> AnyPublisher<Bool, Error>
   func deleteSavedTrack(id: String) -> AnyPublisher<Bool, Error>
-  func fetchProfile() -> AnyPublisher<ProfileEntity?, Error>
-  func saveProfile(_ profile: ProfileEntity) -> AnyPublisher<Bool, Error>
+  func fetchProfile() -> AnyPublisher<ProfileModel?, Error>
+  func saveProfile(_ profile: ProfileModel) -> AnyPublisher<Bool, Error>
   func deleteProfile() -> AnyPublisher<Bool, Error>
 }

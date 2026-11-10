@@ -103,7 +103,7 @@ struct ProfileView: View {
   // MARK: - Actions
   private func toolbarTapped() {
     if isEditing {
-      let updated = ProfileEntity(
+      let updated = ProfileModel(
         displayName: draftName.trimmingCharacters(in: .whitespacesAndNewlines),
         bio: draftBio.trimmingCharacters(in: .whitespacesAndNewlines),
         avatarFileName: viewModel.profile?.avatarFileName

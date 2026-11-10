@@ -8,8 +8,8 @@
 import Combine
 
 protocol ProfileUseCaseProtocol {
-  func fetchProfile() -> AnyPublisher<ProfileEntity?, Error>
-  func saveProfile(_ profile: ProfileEntity) -> AnyPublisher<Bool, Error>
+  func fetchProfile() -> AnyPublisher<ProfileModel?, Error>
+  func saveProfile(_ profile: ProfileModel) -> AnyPublisher<Bool, Error>
 }
 
 final class ProfileUseCase: ProfileUseCaseProtocol {
@@ -19,12 +19,11 @@ final class ProfileUseCase: ProfileUseCaseProtocol {
     self.repository = repository
   }
 
-  func fetchProfile() -> AnyPublisher<ProfileEntity?, any Error> {
+  func fetchProfile() -> AnyPublisher<ProfileModel?, any Error> {
     repository.fetchProfile()
   }
 
-  func saveProfile(_ profile: ProfileEntity) -> AnyPublisher<Bool, any Error> {
+  func saveProfile(_ profile: ProfileModel) -> AnyPublisher<Bool, any Error> {
     repository.saveProfile(profile)
   }
-
 }

@@ -13,8 +13,8 @@ final class ProfileViewModel: ObservableObject {
   private var cancellables = Set<AnyCancellable>()
 
   // MARK: - UI state
-  @Published private(set) var profile: ProfileEntity?
-  @Published private(set) var errorMessage: String?
+  @Published private(set) var profile: ProfileModel?
+  @Published var errorMessage: String?
 
   init(profileUseCase: ProfileUseCaseProtocol) {
     self.profileUseCase = profileUseCase
@@ -32,7 +32,7 @@ final class ProfileViewModel: ObservableObject {
       .store(in: &cancellables)
   }
 
-  func save(_ newProfile: ProfileEntity, onSuccess: @escaping () -> Void) {
+  func save(_ newProfile: ProfileModel, onSuccess: @escaping () -> Void) {
     profileUseCase.saveProfile(newProfile)
       .sink(receiveCompletion: { [weak self] completion in
         if case .failure(let error) = completion {

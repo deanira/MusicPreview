@@ -17,23 +17,23 @@ final class Injection {
     return MusicRepository.sharedInstance(locale, remote)
   }
 
-  func provideHomeUseCase() -> HomeUseCase {
+  func provideHomeUseCase() -> HomeUseCaseProtocol {
     return HomeUseCase(repository: provideRepository())
   }
 
-  func provideSearchUseCase() -> SearchUseCase {
+  func provideSearchUseCase() -> SearchUseCaseProtocol {
     return SearchUseCase(repository: provideRepository())
   }
 
-  func provideLibraryUseCase() -> LibraryUseCase {
+  func provideLibraryUseCase() -> LibraryUseCaseProtocol {
     return LibraryUseCase(repository: provideRepository())
   }
 
-  func provideProfileUseCase() -> ProfileUseCase {
+  func provideProfileUseCase() -> ProfileUseCaseProtocol {
     return ProfileUseCase(repository: provideRepository())
   }
 
-  func providePlayerUseCase() -> PlayerUseCase {
+  func providePlayerUseCase() -> PlayerUseCaseProtocol {
     return PlayerUseCase(repository: provideRepository())
   }
 }
