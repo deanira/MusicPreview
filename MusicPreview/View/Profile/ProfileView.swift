@@ -61,6 +61,15 @@ struct ProfileView: View {
   private var profileInfo: some View {
     VStack(alignment: .leading, spacing: 16) {
       if let profile = viewModel.profile {
+        if let avatarFileName = profile.avatarFileName {
+          Image(avatarFileName)
+            .resizable()
+            .scaledToFit()
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .shadow(radius: 12, y: 6)
+            .padding(.horizontal, 32)
+        }
+
         VStack(alignment: .leading, spacing: 4) {
           Text("Name")
             .font(.caption)

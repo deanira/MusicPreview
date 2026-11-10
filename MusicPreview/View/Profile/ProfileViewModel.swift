@@ -8,6 +8,10 @@
 import Combine
 import Foundation
 
+extension ProfileModel {
+  static let `default` = ProfileModel(displayName: "dea", bio: "live your life!", avatarFileName: "avatar")
+}
+
 final class ProfileViewModel: ObservableObject {
   private let profileUseCase: ProfileUseCaseProtocol
   private var cancellables = Set<AnyCancellable>()
@@ -22,12 +26,13 @@ final class ProfileViewModel: ObservableObject {
 
   func load() {
     profileUseCase.fetchProfile()
+      .receive(on: DispatchQueue.main)
       .sink(receiveCompletion: { [weak self] completion in
         if case .failure(let error) = completion {
           self?.errorMessage = error.localizedDescription
         }
       }, receiveValue: { [weak self] profile in
-        self?.profile = profile
+        self?.profile = profile ?? .default
       })
       .store(in: &cancellables)
   }

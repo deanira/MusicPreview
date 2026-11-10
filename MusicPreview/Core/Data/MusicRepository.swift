@@ -59,8 +59,9 @@ extension MusicRepository: MusicRepositoryProtocol {
 
   func fetchProfile() -> AnyPublisher<ProfileModel?, Error> {
     return self.locale.fetchProfile()
-      .compactMap { $0 }
-      .map { ProfileMapper.mapProfileEntitiesToDomains(input: $0) }
+      .map { entity in
+        entity.map { ProfileMapper.mapProfileEntitiesToDomains(input: $0) }
+      }
       .eraseToAnyPublisher()
   }
 
