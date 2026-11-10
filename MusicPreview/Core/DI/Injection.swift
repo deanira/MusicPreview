@@ -10,7 +10,7 @@ import RealmSwift
 final class Injection {
   static let sharedInstance = Injection()
 
-  private func provideRepository() -> MusicRepository {
+  private func provideRepository() -> MusicRepositoryProtocol {
     let realm = try? Realm()
     let locale = LocaleDataSource.sharedInstance(realm)
     let remote = RemoteDataSource.sharedInstance
@@ -35,5 +35,9 @@ final class Injection {
 
   func providePlayerUseCase() -> PlayerUseCaseProtocol {
     return PlayerUseCase(repository: provideRepository())
+  }
+
+  func provideAudioPlayerManager() -> AudioPlayerManagerProtocol {
+    return AudioPlayerManager.shared
   }
 }

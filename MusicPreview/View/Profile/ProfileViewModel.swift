@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 extension ProfileModel {
-  static let `default` = ProfileModel(displayName: "dea", bio: "live your life!", avatarFileName: "avatar")
+  static let `default` = ProfileModel(displayName: "deanira fadrinaldi", bio: "live your life!", avatarFileName: "avatar")
 }
 
 final class ProfileViewModel: ObservableObject {

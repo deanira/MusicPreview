@@ -45,11 +45,7 @@ final class HomeViewModel: ObservableObject {
         if case .failure(let error) = completion {
           self.errorMessage = error.localizedDescription
         }
-      } receiveValue: { [weak self] state in
-        guard let self else { return }
-        if state { }
-        else { }
-      }
+      } receiveValue: { _ in }
       .store(in: &cancellables)
   }
 }

@@ -8,15 +8,15 @@
 import Combine
 
 final class MusicRepository {
-  fileprivate let locale: LocaleDataSource
-  fileprivate let remote: RemoteDataSource
+  fileprivate let locale: LocaleDataSourceProtocol
+  fileprivate let remote: RemoteDataSourceProtocol
 
-  init(locale: LocaleDataSource, remote: RemoteDataSource) {
+  init(locale: LocaleDataSourceProtocol, remote: RemoteDataSourceProtocol) {
     self.locale = locale
     self.remote = remote
   }
 
-  static let sharedInstance: (LocaleDataSource, RemoteDataSource) -> MusicRepository = { locale, remote in
+  static let sharedInstance: (LocaleDataSourceProtocol, RemoteDataSourceProtocol) -> MusicRepository = { locale, remote in
     MusicRepository(locale: locale, remote: remote)
   }
 }

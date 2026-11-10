@@ -30,6 +30,7 @@ struct MiniPlayerView: View {
           .contentShape(Rectangle())
       }
       .buttonStyle(.plain)
+      .background(.blue)
     }
     .padding(.horizontal)
     .frame(maxWidth: .infinity, maxHeight: .infinity)

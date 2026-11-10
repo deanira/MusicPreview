@@ -5,7 +5,7 @@ import Playgrounds
 struct ContentView: View {
   @StateObject private var player = PlayerViewModel(
     playerUseCase: Injection.sharedInstance.providePlayerUseCase(),
-    audioPlayerManager: AudioPlayerManager.shared
+    audioPlayerManager: Injection.sharedInstance.provideAudioPlayerManager()
   )
   @Namespace private var namespace
 

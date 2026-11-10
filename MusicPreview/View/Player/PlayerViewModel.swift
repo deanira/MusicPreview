@@ -45,7 +45,7 @@ final class PlayerViewModel: ObservableObject {
   var durationText: String { Self.format(seconds: duration) }
   var sliderRange: ClosedRange<Double> { 0...max(duration, 1) }
 
-  init(playerUseCase: PlayerUseCaseProtocol, audioPlayerManager: AudioPlayerManager) {
+  init(playerUseCase: PlayerUseCaseProtocol, audioPlayerManager: AudioPlayerManagerProtocol) {
     self.playerUseCase = playerUseCase
     self.audioPlayerManager = audioPlayerManager
     bind()
