@@ -11,7 +11,11 @@ import Combine
 
 final class ProfileUseCaseTests: XCTestCase {
 
-  static var profile = ProfileEntity(displayName: "dea", bio: "live now or never")
+  static var profile = ProfileModel(
+    displayName: "dea",
+    bio: "live now or never",
+    avatarFileName: nil
+  )
 
   private var cancellables = Set<AnyCancellable>()
 
@@ -27,7 +31,7 @@ final class ProfileUseCaseTests: XCTestCase {
     let useCase = ProfileUseCase(repository: repository)
 
     let expectation = expectation(description: "fetchProfile success")
-    var receivedProfile: ProfileEntity?
+    var receivedProfile: ProfileModel?
 
     useCase.fetchProfile()
       .sink(
@@ -54,7 +58,7 @@ final class ProfileUseCaseTests: XCTestCase {
     let useCase = ProfileUseCase(repository: repository)
 
     let expectation = expectation(description: "fetchProfile nil")
-    var receivedProfile: ProfileEntity?
+    var receivedProfile: ProfileModel?
     var didReceiveValue = false
 
     useCase.fetchProfile()
@@ -197,16 +201,15 @@ extension ProfileUseCaseTests {
   class MusicRepositoryMock: MusicRepositoryProtocol {
     var fetchWasCalled = false
     var saveWasCalled = false
-    var receivedProfile: ProfileEntity?
-    var fetchResult: Result<ProfileEntity?, Error> = .success(nil)
+    var receivedProfile: ProfileModel?
+    var fetchResult: Result<ProfileModel?, Error> = .success(nil)
     var saveResult: Result<Bool, Error> = .success(true)
 
-    func fetchProfile() -> AnyPublisher<ProfileEntity?, Error> {
+    func fetchProfile() -> AnyPublisher<MusicPreview.ProfileModel?, any Error> {
       fetchWasCalled = true
-      return fetchResult.publisher.eraseToAnyPublisher()
-    }
+      return fetchResult.publisher.eraseToAnyPublisher()    }
 
-    func saveProfile(_ profile: ProfileEntity) -> AnyPublisher<Bool, Error> {
+    func saveProfile(_ profile: MusicPreview.ProfileModel) -> AnyPublisher<Bool, any Error> {
       saveWasCalled = true
       receivedProfile = profile
       return saveResult.publisher.eraseToAnyPublisher()

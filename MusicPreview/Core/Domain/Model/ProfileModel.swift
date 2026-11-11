@@ -5,7 +5,7 @@
 //  Created by Deanira Fadrinaldi on 10/11/26.
 //
 
-struct ProfileModel {
+struct ProfileModel: Equatable {
   let displayName: String
   let bio: String
   let avatarFileName: String?

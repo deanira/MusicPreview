@@ -181,15 +181,15 @@ extension HomeUseCaseTests {
       return saveResult.publisher.eraseToAnyPublisher()
     }
 
-    func deleteSavedTrack(id: String) -> AnyPublisher<Bool, any Error> {
-      fatalError("Not used in HomeUseCaseTests")
-    }
-    
-    func fetchProfile() -> AnyPublisher<MusicPreview.ProfileEntity?, any Error> {
+    func fetchProfile() -> AnyPublisher<MusicPreview.ProfileModel?, any Error> {
       fatalError("Not used in HomeUseCaseTests")
     }
 
-    func saveProfile(_ profile: MusicPreview.ProfileEntity) -> AnyPublisher<Bool, any Error> {
+    func saveProfile(_ profile: MusicPreview.ProfileModel) -> AnyPublisher<Bool, any Error> {
+      fatalError("Not used in HomeUseCaseTests")
+    }
+
+    func deleteSavedTrack(id: String) -> AnyPublisher<Bool, any Error> {
       fatalError("Not used in HomeUseCaseTests")
     }
 
