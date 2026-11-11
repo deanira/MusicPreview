@@ -27,7 +27,8 @@ final class SearchViewModel: ObservableObject {
     $query
       .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
       .filter { $0.count > 0 }
-      .sink { query in
+      .sink { [weak self] query in
+        guard let self else { return }
         self.searchTracks()
       }
       .store(in: &cancellables)

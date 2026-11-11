@@ -54,7 +54,8 @@ final class PlayerViewModel: ObservableObject {
   func saveTrack() {
     guard let track else { return }
     playerUseCase.saveTrack(track)
-      .sink { completion in
+      .sink { [weak self] completion in
+        guard let self else { return }
         switch completion {
         case .failure(let error):
           self.errorMessage = error.localizedDescription
@@ -72,7 +73,8 @@ final class PlayerViewModel: ObservableObject {
   func deleteTrack() {
     guard let id = track?.id else { return }
     playerUseCase.deleteTrack(id: id)
-      .sink { completion in
+      .sink { [weak self] completion in
+        guard let self else { return }
         switch completion {
         case .failure(let error):
           self.errorMessage = error.localizedDescription
