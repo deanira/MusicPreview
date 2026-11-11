@@ -26,8 +26,6 @@ struct MiniPlayerView: View {
         viewModel.togglePlayPause()
       } label: {
         Image(systemName: viewModel.isPlaying ? "pause.fill" : "play.fill")
-          .frame(width: 44, height: 44)
-          .contentShape(Rectangle())
       }
       .buttonStyle(.plain)
       .background(.blue)
